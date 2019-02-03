@@ -1,0 +1,7 @@
+# Used by "mix format"
+[
+  import_deps: [:ecto],
+  inputs: ["{mix,.formatter}.exs", "{config,lib,test}/**/*.{ex,exs}"],
+  # 98 by default
+  line_length: 80
+]
