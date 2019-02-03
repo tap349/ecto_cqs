@@ -1,3 +1,12 @@
+# > <https://hexdocs.pm/ex_unit/ExUnit.DocTest.html>
+# >
+# > In general, doctests are not recommended when your code examples
+# > contain side effects. For example, if a doctest prints to standard
+# > output, doctest will not try to capture the output.
+# >
+# > Similarly, doctests do not run in any kind of sandbox.
+#
+# => don't use doctests
 defmodule EctoCQRS.DataCase do
   use ExUnit.CaseTemplate
 
