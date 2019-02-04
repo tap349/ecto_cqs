@@ -1,4 +1,4 @@
-defmodule EctoCQRS.Helpers do
+defmodule EctoCQS.Helpers do
   def schema(opts) do
     opts
     |> Keyword.fetch!(:schema)

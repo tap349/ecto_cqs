@@ -1,14 +1,14 @@
-defmodule EctoCQRS.MixProject do
+defmodule EctoCQS.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :ecto_cqrs,
+      app: :ecto_cqs,
       version: "0.1.0",
       elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      description: "CQRS library for Ecto",
+      description: "CQS library for Ecto",
       package: package(),
       deps: deps()
     ]
@@ -27,7 +27,7 @@ defmodule EctoCQRS.MixProject do
     [
       maintainers: ["Alexey Terekhov"],
       licenses: ["MIT"],
-      links: %{github: "https://github.com/tap349/ecto_cqrs"},
+      links: %{github: "https://github.com/tap349/ecto_cqs"},
       # > <https://hex.pm/docs/publish>
       # >
       # > When running the command to publish a package, Hex will

@@ -1,4 +1,4 @@
-defmodule EctoCQRS.Query do
+defmodule EctoCQS.Query do
   import Ecto.Query, except: [limit: 2, order_by: 2], warn: false
 
   def by(query, clauses) do

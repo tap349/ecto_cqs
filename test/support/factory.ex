@@ -1,6 +1,6 @@
-defmodule EctoCQRS.Factory do
+defmodule EctoCQS.Factory do
   def build(:user) do
-    %EctoCQRS.User{name: "foo", email: "foo@example.com"}
+    %EctoCQS.User{name: "foo", email: "foo@example.com"}
   end
 
   def build(factory_name, attrs) when is_map(attrs) or is_list(attrs) do
@@ -8,6 +8,6 @@ defmodule EctoCQRS.Factory do
   end
 
   def insert!(factory_name, attrs \\ []) do
-    factory_name |> build(attrs) |> EctoCQRS.Repo.insert!()
+    factory_name |> build(attrs) |> EctoCQS.Repo.insert!()
   end
 end

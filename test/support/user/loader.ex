@@ -1,3 +1,3 @@
-defmodule EctoCQRS.User.Loader do
-  use EctoCQRS.Loader, schema: EctoCQRS.User
+defmodule EctoCQS.User.Loader do
+  use EctoCQS.Loader, schema: EctoCQS.User
 end

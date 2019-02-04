@@ -1,3 +1,3 @@
-defmodule EctoCQRS.User.Query do
+defmodule EctoCQS.User.Query do
   import Ecto.Query, warn: false
 end

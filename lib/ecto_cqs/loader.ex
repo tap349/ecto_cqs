@@ -1,7 +1,7 @@
-defmodule EctoCQRS.Loader do
+defmodule EctoCQS.Loader do
   defmacro __using__(opts) do
-    repo = EctoCQRS.Helpers.repo(opts)
-    schema = EctoCQRS.Helpers.schema(opts)
+    repo = EctoCQS.Helpers.repo(opts)
+    schema = EctoCQS.Helpers.schema(opts)
 
     quote do
       # don't try to extract each and every query into schema Query -
@@ -26,26 +26,26 @@ defmodule EctoCQRS.Loader do
 
       def all_by(clauses) do
         Schema
-        |> EctoCQRS.Query.by(clauses)
-        |> EctoCQRS.Query.order_by(:inserted_at)
+        |> EctoCQS.Query.by(clauses)
+        |> EctoCQS.Query.order_by(:inserted_at)
         |> Repo.all()
       end
 
       def all_ordered_by(expr) do
         Schema
-        |> EctoCQRS.Query.order_by(expr)
+        |> EctoCQS.Query.order_by(expr)
         |> Repo.all()
       end
 
       def first do
         Schema
-        |> EctoCQRS.Query.first()
+        |> EctoCQS.Query.first()
         |> Repo.one()
       end
 
       def last do
         Schema
-        |> EctoCQRS.Query.last()
+        |> EctoCQS.Query.last()
         |> Repo.one()
       end
 

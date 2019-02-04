@@ -2,7 +2,7 @@
 # repo module is defined for test environment only:
 #
 # $ MIX_ENV=test mix ecto.gen.migration create_users
-defmodule EctoCQRS.Repo.Migrations.CreateUsers do
+defmodule EctoCQS.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do

@@ -1,7 +1,7 @@
-defmodule EctoCQRS.LoaderTest do
-  use EctoCQRS.DataCase
-  import EctoCQRS.Helpers, only: [now: 0]
-  alias EctoCQRS.User.Loader
+defmodule EctoCQS.LoaderTest do
+  use EctoCQS.DataCase
+  import EctoCQS.Helpers, only: [now: 0]
+  alias EctoCQS.User.Loader
 
   test "all_by/1 returns all users matching given clauses" do
     now = now()

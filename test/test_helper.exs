@@ -1,4 +1,4 @@
-{:ok, _pid} = EctoCQRS.Repo.start_link()
+{:ok, _pid} = EctoCQS.Repo.start_link()
 
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(EctoCQRS.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(EctoCQS.Repo, :manual)

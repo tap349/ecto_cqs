@@ -1,3 +1,3 @@
-defmodule EctoCQRS.User.Mutator do
-  use EctoCQRS.Mutator, schema: EctoCQRS.User
+defmodule EctoCQS.User.Mutator do
+  use EctoCQS.Mutator, schema: EctoCQS.User
 end

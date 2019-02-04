@@ -1,9 +1,9 @@
-defmodule EctoCQRS.MutatorTest do
-  use EctoCQRS.DataCase
+defmodule EctoCQS.MutatorTest do
+  use EctoCQS.DataCase
 
   alias Ecto.Changeset
-  alias EctoCQRS.User
-  alias EctoCQRS.User.{Loader, Mutator}
+  alias EctoCQS.User
+  alias EctoCQS.User.{Loader, Mutator}
 
   test "create/1 with valid changeset creates user" do
     attrs = %{name: "John", email: "foo@example.com"}

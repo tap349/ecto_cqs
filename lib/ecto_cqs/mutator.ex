@@ -1,7 +1,7 @@
-defmodule EctoCQRS.Mutator do
+defmodule EctoCQS.Mutator do
   defmacro __using__(opts) do
-    repo = EctoCQRS.Helpers.repo(opts)
-    schema = EctoCQRS.Helpers.schema(opts)
+    repo = EctoCQS.Helpers.repo(opts)
+    schema = EctoCQS.Helpers.schema(opts)
 
     quote do
       alias Ecto.Multi
@@ -30,7 +30,7 @@ defmodule EctoCQRS.Mutator do
       def import(entries, precision \\ :second)
 
       def import(entries, precision) do
-        timestamps = EctoCQRS.Helpers.timestamps(precision)
+        timestamps = EctoCQS.Helpers.timestamps(precision)
         entries = Enum.map(entries, &Map.merge(&1, timestamps))
 
         Schema
@@ -53,7 +53,7 @@ defmodule EctoCQRS.Mutator do
 
       def delete_by(clauses) do
         Schema
-        |> EctoCQRS.Query.by(clauses)
+        |> EctoCQS.Query.by(clauses)
         |> Repo.delete_all()
       end
     end
