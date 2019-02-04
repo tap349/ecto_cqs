@@ -27,17 +27,13 @@ defmodule EctoCQS.Mutator do
         |> Repo.insert()
       end
 
-      def import(entries, precision \\ :second)
-
-      def import(entries, precision) do
+      def import(entries, precision \\ :second, opts \\ [returning: false]) do
         timestamps = EctoCQS.Helpers.timestamps(precision)
         entries = Enum.map(entries, &Map.merge(&1, timestamps))
 
         Schema
-        |> Repo.insert_all(entries, returning: false)
+        |> Repo.insert_all(entries, opts)
       end
-
-      defoverridable import: 2
 
       def update(%Schema{} = struct, attrs) do
         struct
