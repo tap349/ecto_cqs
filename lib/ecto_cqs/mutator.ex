@@ -27,7 +27,7 @@ defmodule EctoCQS.Mutator do
         |> Repo.insert()
       end
 
-      def import(entries, precision \\ :second, opts \\ [returning: false]) do
+      def insert_all(entries, precision \\ :second, opts \\ [returning: false]) do
         timestamps = EctoCQS.Helpers.timestamps(precision)
         entries = Enum.map(entries, &Map.merge(&1, timestamps))
 

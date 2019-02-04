@@ -30,13 +30,13 @@ defmodule EctoCQS.MutatorTest do
     assert {:error, %Changeset{}} = Mutator.create(attrs)
   end
 
-  test "import/1 inserts all users" do
+  test "insert_all/1 inserts all users" do
     entries = [
       %{name: "John", email: "foo@example.com"},
       %{name: "Jane", email: "bar@example.com"}
     ]
 
-    assert {2, nil} = Mutator.import(entries)
+    assert {2, nil} = Mutator.insert_all(entries)
 
     users = Loader.all()
     assert Enum.count(users) == 2
