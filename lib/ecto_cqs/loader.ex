@@ -27,13 +27,13 @@ defmodule EctoCQS.Loader do
       def all_by(clauses) do
         Schema
         |> EctoCQS.Query.by(clauses)
-        |> EctoCQS.Query.order_by(:inserted_at)
+        |> Ecto.Query.order_by(:inserted_at)
         |> Repo.all()
       end
 
       def all_ordered_by(expr) do
         Schema
-        |> EctoCQS.Query.order_by(expr)
+        |> Ecto.Query.order_by(expr)
         |> Repo.all()
       end
 
