@@ -3,10 +3,6 @@
 defmodule EctoCQS.Query do
   import Ecto.Query, warn: false
 
-  def by(query, clauses) do
-    query |> where(^clauses)
-  end
-
   def random(query) do
     query |> Ecto.Query.order_by(fragment("RANDOM()"))
   end

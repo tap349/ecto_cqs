@@ -26,7 +26,7 @@ defmodule EctoCQS.Loader do
 
       def all_by(clauses) do
         Schema
-        |> EctoCQS.Query.by(clauses)
+        |> where(^clauses)
         |> order_by(:inserted_at)
         |> Repo.all()
       end

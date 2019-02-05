@@ -1,3 +1,11 @@
+## v0.1.5
+
+- remove `EctoCQS.Query.order_by/2` in favour of `Ecto.Query.where/3`
+
+## v0.1.4
+
+- fix bug in EctoCQS.Loader
+
 ## v0.1.3
 
 - remove `EctoCQS.Query.order_by/2` and `EctoCQS.Query.limit/2` in favour

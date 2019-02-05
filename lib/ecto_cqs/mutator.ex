@@ -4,6 +4,8 @@ defmodule EctoCQS.Mutator do
     schema = EctoCQS.Helpers.schema(opts)
 
     quote do
+      import Ecto.Query, warn: false
+
       alias Ecto.Multi
       alias unquote(repo), as: Repo
       alias unquote(schema), as: Schema
@@ -49,7 +51,7 @@ defmodule EctoCQS.Mutator do
 
       def delete_by(clauses) do
         Schema
-        |> EctoCQS.Query.by(clauses)
+        |> where(^clauses)
         |> Repo.delete_all()
       end
     end
