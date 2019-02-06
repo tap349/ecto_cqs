@@ -4,7 +4,7 @@ defmodule EctoCQS.Query do
   import Ecto.Query, warn: false
 
   def random(query) do
-    query |> Ecto.Query.order_by(fragment("RANDOM()"))
+    query |> order_by(fragment("RANDOM()"))
   end
 
   def first(query) do
