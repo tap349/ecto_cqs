@@ -63,6 +63,14 @@ defmodule EctoCQS.MutatorTest do
     assert Loader.get!(user.id) == user
   end
 
+  test "update_by_id/2 updates user by ID" do
+    user = insert!(:user, name: "John")
+    assert {:ok, %User{}} = Mutator.update_by_id(user.id, %{name: "Jane"})
+
+    user = Loader.get!(user.id)
+    assert user.name == "Jane"
+  end
+
   test "update_all/1 updates all users" do
     user_1 = insert!(:user, name: "John")
     user_2 = insert!(:user, name: "Jane")

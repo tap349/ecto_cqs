@@ -43,6 +43,13 @@ defmodule EctoCQS.Mutator do
         |> Repo.update()
       end
 
+      def update_by_id(id, attrs) do
+        id
+        |> Loader.get!()
+        |> Schema.update_changeset(attrs)
+        |> Repo.update()
+      end
+
       # it takes about 5min to update 2.3M rows
       def update_all(attrs) do
         Schema
