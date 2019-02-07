@@ -23,6 +23,7 @@ defmodule EctoCQS.Loader do
       defdelegate get(schema \\ Schema, id), to: Repo
       defdelegate get!(schema \\ Schema, id), to: Repo
       defdelegate get_by(schema \\ Schema, clauses), to: Repo
+      defdelegate get_by!(schema \\ Schema, clauses), to: Repo
 
       def all_by(clauses) do
         Schema
