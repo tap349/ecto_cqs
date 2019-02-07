@@ -6,34 +6,34 @@ defmodule EctoCQS.MutatorTest do
   alias EctoCQS.User.{Loader, Mutator}
 
   test "create/1 with valid changeset creates user" do
-    attrs = %{name: "John", email: "foo@example.com"}
+    attrs = %{name: "John", email: "john@example.com"}
     changeset = User.changeset(%User{}, attrs)
 
     assert {:ok, %User{id: id}} = Mutator.create(changeset)
 
     user = Loader.get!(id)
     assert user.name == "John"
-    assert user.email == "foo@example.com"
+    assert user.email == "john@example.com"
   end
 
   test "create/1 with valid attributes creates user" do
-    attrs = %{name: "John", email: "foo@example.com"}
+    attrs = %{name: "John", email: "john@example.com"}
     assert {:ok, %User{id: id}} = Mutator.create(attrs)
 
     user = Loader.get!(id)
     assert user.name == "John"
-    assert user.email == "foo@example.com"
+    assert user.email == "john@example.com"
   end
 
   test "create/1 with invalid attributes returns error changeset" do
-    attrs = %{name: nil, email: "foo@example.com"}
+    attrs = %{name: nil, email: "john@example.com"}
     assert {:error, %Changeset{}} = Mutator.create(attrs)
   end
 
   test "insert_all/1 inserts all users" do
     entries = [
-      %{name: "John", email: "foo@example.com"},
-      %{name: "Jane", email: "bar@example.com"}
+      %{name: "John", email: "john@example.com"},
+      %{name: "Jane", email: "jane@example.com"}
     ]
 
     assert {2, nil} = Mutator.insert_all(entries)
@@ -42,10 +42,10 @@ defmodule EctoCQS.MutatorTest do
     assert Enum.count(users) == 2
 
     assert Enum.at(users, 0).name == "John"
-    assert Enum.at(users, 0).email == "foo@example.com"
+    assert Enum.at(users, 0).email == "john@example.com"
 
     assert Enum.at(users, 1).name == "Jane"
-    assert Enum.at(users, 1).email == "bar@example.com"
+    assert Enum.at(users, 1).email == "jane@example.com"
   end
 
   test "update/2 with valid attributes updates user" do
