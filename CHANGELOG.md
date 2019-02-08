@@ -1,3 +1,7 @@
+## v0.1.8
+
+- add `EctoCQS.Loader.count_by/1`
+
 ## v0.1.5
 
 - remove `EctoCQS.Query.order_by/2` in favour of `Ecto.Query.where/3`
