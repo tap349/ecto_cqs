@@ -43,6 +43,7 @@ defmodule EctoCQS.Mutator do
         |> Repo.update()
       end
 
+      # http://blog.tap349.com/elixir/ecto/2018/12/28/ecto-tips/#how-to-to-update-record-by-id
       def update_by_id(id, attrs) do
         id
         |> Loader.get!()
