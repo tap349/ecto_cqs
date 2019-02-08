@@ -54,6 +54,12 @@ defmodule EctoCQS.Loader do
         Schema
         |> Repo.aggregate(:count, :id)
       end
+
+      def count_by(clauses) do
+        Schema
+        |> where(^clauses)
+        |> Repo.aggregate(:count, :id)
+      end
     end
   end
 end

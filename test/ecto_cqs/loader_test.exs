@@ -57,4 +57,12 @@ defmodule EctoCQS.LoaderTest do
 
     assert Loader.count() == 2
   end
+
+  test "count_by/0 returns count of users matching given clauses" do
+    insert!(:user, name: "John")
+    insert!(:user, name: "John")
+    insert!(:user, name: "Jane")
+
+    assert Loader.count_by(name: "John") == 2
+  end
 end
