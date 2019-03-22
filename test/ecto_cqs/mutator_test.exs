@@ -85,7 +85,7 @@ defmodule EctoCQS.MutatorTest do
     assert user.name == "Jack"
   end
 
-  test "delete_by/1 deletes all users matching given clauses" do
+  test "delete_by/1 deletes users filtered using given expression" do
     _user_1 = insert!(:user, name: "John")
     _user_2 = insert!(:user, name: "John")
     user_3 = insert!(:user, name: "Jane")

@@ -22,12 +22,12 @@ defmodule EctoCQS.Loader do
       defdelegate all(schema \\ Schema), to: Repo
       defdelegate get(schema \\ Schema, id), to: Repo
       defdelegate get!(schema \\ Schema, id), to: Repo
-      defdelegate get_by(schema \\ Schema, clauses), to: Repo
-      defdelegate get_by!(schema \\ Schema, clauses), to: Repo
+      defdelegate get_by(schema \\ Schema, expr), to: Repo
+      defdelegate get_by!(schema \\ Schema, expr), to: Repo
 
-      def all_by(clauses) do
+      def all_by(expr) do
         Schema
-        |> where(^clauses)
+        |> where(^expr)
         |> order_by(:inserted_at)
         |> Repo.all()
       end
@@ -55,9 +55,9 @@ defmodule EctoCQS.Loader do
         |> Repo.aggregate(:count, :id)
       end
 
-      def count_by(clauses) do
+      def count_by(expr) do
         Schema
-        |> where(^clauses)
+        |> where(^expr)
         |> Repo.aggregate(:count, :id)
       end
     end

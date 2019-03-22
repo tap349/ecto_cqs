@@ -57,9 +57,9 @@ defmodule EctoCQS.Mutator do
         |> Repo.update_all(set: Map.to_list(attrs))
       end
 
-      def delete_by(clauses) do
+      def delete_by(expr) do
         Schema
-        |> where(^clauses)
+        |> where(^expr)
         |> Repo.delete_all()
       end
     end

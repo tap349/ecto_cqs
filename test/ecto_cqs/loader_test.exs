@@ -3,7 +3,7 @@ defmodule EctoCQS.LoaderTest do
   import EctoCQS.Helpers, only: [now: 0]
   alias EctoCQS.User.Loader
 
-  test "all_by/1 returns all users matching given clauses" do
+  test "all_by/1 returns users filtered using given expression" do
     now = now()
 
     user_1 =
@@ -27,7 +27,7 @@ defmodule EctoCQS.LoaderTest do
     assert Loader.all_by(name: "John") == [user_1, user_2]
   end
 
-  test "all_ordered_by/1 returns all users sorted using given expression" do
+  test "all_ordered_by/1 returns all users ordered using given expression" do
     now = now()
     user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
     user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
@@ -51,14 +51,14 @@ defmodule EctoCQS.LoaderTest do
     assert Loader.last() == user_2
   end
 
-  test "count/0 returns count of users" do
+  test "count/0 returns count of all users" do
     insert!(:user)
     insert!(:user)
 
     assert Loader.count() == 2
   end
 
-  test "count_by/0 returns count of users matching given clauses" do
+  test "count_by/0 returns count of users filtered using given expression" do
     insert!(:user, name: "John")
     insert!(:user, name: "John")
     insert!(:user, name: "Jane")
