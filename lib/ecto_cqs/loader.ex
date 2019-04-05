@@ -44,10 +44,24 @@ defmodule EctoCQS.Loader do
         |> Repo.one()
       end
 
+      def first(limit) do
+        Schema
+        |> order_by(:inserted_at)
+        |> limit(^limit)
+        |> Repo.all()
+      end
+
       def last do
         Schema
         |> EctoCQS.Query.last()
         |> Repo.one()
+      end
+
+      def last(limit) do
+        Schema
+        |> order_by(desc: :inserted_at)
+        |> limit(^limit)
+        |> Repo.all()
       end
 
       def count do
