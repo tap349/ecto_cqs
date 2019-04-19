@@ -27,7 +27,7 @@ defmodule EctoCQS.MixProject do
     [
       maintainers: ["Alexey Terekhov"],
       licenses: ["MIT"],
-      links: %{github: "https://github.com/tap349/ecto_cqs"},
+      links: %{"GitHub" => "https://github.com/tap349/ecto_cqs"},
       # > <https://hex.pm/docs/publish>
       # >
       # > When running the command to publish a package, Hex will
