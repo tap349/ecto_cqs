@@ -1,15 +1,15 @@
 defmodule EctoCQS.Helpers do
-  def schema(opts) do
-    opts
-    |> Keyword.fetch!(:schema)
-    |> Macro.expand(__ENV__)
-  end
-
   def repo(opts) do
     case opts[:repo] do
       nil -> repo_from_schema(schema(opts))
       _ -> Macro.expand(opts[:repo], __ENV__)
     end
+  end
+
+  def schema(opts) do
+    opts
+    |> Keyword.fetch!(:schema)
+    |> Macro.expand(__ENV__)
   end
 
   def now(precision \\ :second) do
