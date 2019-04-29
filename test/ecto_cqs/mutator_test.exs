@@ -5,18 +5,6 @@ defmodule EctoCQS.MutatorTest do
   alias EctoCQS.User
   alias EctoCQS.User.{Loader, Mutator}
 
-  describe "cast/2" do
-    test "casts attributes using schema changeset" do
-      attrs = %{name: "John", email: "john@example.com", age: "32"}
-
-      assert Mutator.cast(attrs) == %{
-               name: "John",
-               email: "john@example.com",
-               age: 32
-             }
-    end
-  end
-
   describe "insert/2" do
     test "inserts user (valid changeset)" do
       attrs = %{name: "John", email: "john@example.com", age: 30}

@@ -14,6 +14,8 @@ defmodule EctoCQS.User do
   @update_permitted_fields ~w(name)a
   @required_fields @create_permitted_fields
 
+  use EctoCQS.SchemaHelpers
+
   def changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, @create_permitted_fields)

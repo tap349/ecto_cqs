@@ -1,3 +1,7 @@
+## v0.3.1
+
+- move `EctoCQS.Mutator.cast/2` to `EctoCQS.SchemaHelpers.cast/1`
+
 ## v0.3.0
 
 - add `EctoCQS.Mutator.cast/2`
