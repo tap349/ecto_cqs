@@ -1,3 +1,8 @@
+## v0.4.0
+
+- remove `EctoCQS.SchemaHelpers` module - I'm going to extract these and
+  other helpers into their own package
+
 ## v0.3.2
 
 - fixes of `EctoCQS.SchemaHelpers.cast/1` to make it work for both insert
