@@ -1,3 +1,9 @@
+## v0.2.0
+
+- add `EctoCQS.Mutator.multi_insert/2`
+- rename `EctoCQS.Mutator.create/1` to `EctoCQS.Mutator.insert/2` and allow
+  to pass options (hence arity of 2)
+
 ## v0.1.9
 
 - add `EctoCQS.Loader.first/1` and `EctoCQS.Loader.last/1`

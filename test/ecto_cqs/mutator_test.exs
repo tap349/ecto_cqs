@@ -5,38 +5,58 @@ defmodule EctoCQS.MutatorTest do
   alias EctoCQS.User
   alias EctoCQS.User.{Loader, Mutator}
 
-  test "create/1 with valid changeset creates user" do
+  test "insert/2 with valid changeset creates user" do
     attrs = %{name: "John", email: "john@example.com"}
     changeset = User.changeset(%User{}, attrs)
 
-    assert {:ok, %User{id: id}} = Mutator.create(changeset)
+    assert {:ok, %User{id: id}} = Mutator.insert(changeset)
 
     user = Loader.get!(id)
     assert user.name == "John"
     assert user.email == "john@example.com"
   end
 
-  test "create/1 with valid attributes creates user" do
+  test "insert/2 with valid attributes creates user" do
     attrs = %{name: "John", email: "john@example.com"}
-    assert {:ok, %User{id: id}} = Mutator.create(attrs)
+    assert {:ok, %User{id: id}} = Mutator.insert(attrs)
 
     user = Loader.get!(id)
     assert user.name == "John"
     assert user.email == "john@example.com"
   end
 
-  test "create/1 with invalid attributes returns error changeset" do
+  test "insert/2 with invalid attributes returns error changeset" do
     attrs = %{name: nil, email: "john@example.com"}
-    assert {:error, %Changeset{}} = Mutator.create(attrs)
+    assert {:error, %Changeset{}} = Mutator.insert(attrs)
   end
 
-  test "insert_all/1 inserts all users" do
+  test "insert_all/2 inserts all users" do
     entries = [
       %{name: "John", email: "john@example.com"},
       %{name: "Jane", email: "jane@example.com"}
     ]
 
     assert {2, nil} = Mutator.insert_all(entries)
+
+    users = Loader.all()
+    assert Enum.count(users) == 2
+
+    assert Enum.at(users, 0).name == "John"
+    assert Enum.at(users, 0).email == "john@example.com"
+
+    assert Enum.at(users, 1).name == "Jane"
+    assert Enum.at(users, 1).email == "jane@example.com"
+  end
+
+  test "multi_insert/2 inserts all users" do
+    entries = [
+      %{name: "John", email: "john@example.com"},
+      %{name: "Jane", email: "jane@example.com"}
+    ]
+
+    changesets = Enum.map(entries, &User.changeset(%User{}, &1))
+
+    assert {:ok, _changes} = Mutator.multi_insert(changesets)
 
     users = Loader.all()
     assert Enum.count(users) == 2

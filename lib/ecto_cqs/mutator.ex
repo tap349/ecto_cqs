@@ -12,29 +12,49 @@ defmodule EctoCQS.Mutator do
       alias unquote(schema)
       alias unquote(:"#{schema}.Loader")
 
+      @default_insert_opts [returning: false]
+
       # don't test delegating functions
       #
       # use Repo functions that don't require schema
       # (like Repo.delete/2) directly without Mutator
       defdelegate delete_all(schema \\ Schema), to: Repo
 
-      def create(%Ecto.Changeset{} = changeset) do
+      def insert(changeset_or_attrs, opts \\ [])
+
+      def insert(%Ecto.Changeset{} = changeset, opts) do
+        opts = Keyword.merge(@default_insert_opts, opts)
+
         changeset
-        |> Repo.insert()
+        |> Repo.insert(opts)
       end
 
-      def create(attrs) do
+      def insert(attrs, opts) do
+        opts = Keyword.merge(@default_insert_opts, opts)
+
         %Schema{}
         |> Schema.changeset(attrs)
-        |> Repo.insert()
+        |> Repo.insert(opts)
       end
 
-      def insert_all(entries, precision \\ :second, opts \\ [returning: false]) do
-        timestamps = EctoCQS.Helpers.timestamps(precision)
+      def insert_all(entries, opts \\ []) do
+        timestamps = EctoCQS.Helpers.timestamps(:second)
         entries = Enum.map(entries, &Map.merge(&1, timestamps))
+        opts = Keyword.merge(@default_insert_opts, opts)
 
         Schema
         |> Repo.insert_all(entries, opts)
+      end
+
+      def multi_insert([%Ecto.Changeset{} | _] = changesets, opts \\ []) do
+        opts = Keyword.merge(@default_insert_opts, opts)
+
+        changesets
+        |> Enum.with_index()
+        |> Enum.reduce(Multi.new(), fn {changeset, i}, acc ->
+          Multi.insert(acc, i, changeset, opts)
+        end)
+        |> Repo.transaction()
       end
 
       def update(%Schema{} = struct, attrs) do
