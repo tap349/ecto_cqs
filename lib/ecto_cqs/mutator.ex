@@ -30,11 +30,9 @@ defmodule EctoCQS.Mutator do
       end
 
       def insert(attrs, opts) do
-        opts = Keyword.merge(@default_insert_opts, opts)
-
         %Schema{}
         |> Schema.changeset(attrs)
-        |> Repo.insert(opts)
+        |> insert(opts)
       end
 
       def insert_all(entries, opts \\ []) do
@@ -46,7 +44,11 @@ defmodule EctoCQS.Mutator do
         |> Repo.insert_all(entries, opts)
       end
 
-      def multi_insert([%Ecto.Changeset{} | _] = changesets, opts \\ []) do
+      def multi_insert(changesets_or_entries, opts \\ [])
+
+      def multi_insert([], opts), do: {:ok, %{}}
+
+      def multi_insert([%Ecto.Changeset{} | _] = changesets, opts) do
         opts = Keyword.merge(@default_insert_opts, opts)
 
         changesets
@@ -55,6 +57,12 @@ defmodule EctoCQS.Mutator do
           Multi.insert(acc, i, changeset, opts)
         end)
         |> Repo.transaction()
+      end
+
+      def multi_insert(entries, opts) do
+        entries
+        |> Enum.map(&Schema.changeset(%Schema{}, &1))
+        |> multi_insert(opts)
       end
 
       def update(%Schema{} = struct, attrs) do

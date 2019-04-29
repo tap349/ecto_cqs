@@ -29,7 +29,6 @@ defmodule EctoCQS.LoaderTest do
 
   test "all_ordered_by/1 returns all users ordered using given expression" do
     now = now()
-
     user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
     user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
 
@@ -38,7 +37,6 @@ defmodule EctoCQS.LoaderTest do
 
   test "first/0 returns first created user" do
     now = now()
-
     user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
     _user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
 
@@ -47,7 +45,6 @@ defmodule EctoCQS.LoaderTest do
 
   test "first/1 returns first N created users" do
     now = now()
-
     user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
     user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
     _user_3 = insert!(:user, inserted_at: DateTime.add(now, 3, :second))
@@ -65,7 +62,6 @@ defmodule EctoCQS.LoaderTest do
 
   test "last/1 returns last N created users" do
     now = now()
-
     _user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
     user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
     user_3 = insert!(:user, inserted_at: DateTime.add(now, 3, :second))

@@ -1,3 +1,8 @@
+## v0.2.1
+
+- `EctoCQS.Mutator.multi_insert/2` allows to insert not only changesets but
+  entries as well
+
 ## v0.2.0
 
 - add `EctoCQS.Mutator.multi_insert/2`
