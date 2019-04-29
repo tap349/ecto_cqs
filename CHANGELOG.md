@@ -1,3 +1,8 @@
+## v0.3.2
+
+- fixes of `EctoCQS.SchemaHelpers.cast/1` to make it work for both insert
+  and update operations
+
 ## v0.3.1
 
 - move `EctoCQS.Mutator.cast/2` to `EctoCQS.SchemaHelpers.cast/1`
