@@ -20,6 +20,7 @@ defmodule EctoCQS.Mutator do
       # (like Repo.delete/2) directly without Mutator
       defdelegate delete_all(schema \\ Schema), to: Repo
 
+      # https://blog.lelonek.me/form-objects-in-elixir-6a57cf7c3d30
       def cast(attrs, changeset_func \\ :changeset) do
         keys = Map.keys(attrs)
 
