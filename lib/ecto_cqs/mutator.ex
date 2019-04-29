@@ -20,6 +20,16 @@ defmodule EctoCQS.Mutator do
       # (like Repo.delete/2) directly without Mutator
       defdelegate delete_all(schema \\ Schema), to: Repo
 
+      def cast(attrs, changeset_func \\ :changeset) do
+        keys = Map.keys(attrs)
+
+        Schema
+        |> apply(changeset_func, [%Schema{}, attrs])
+        |> Ecto.Changeset.apply_changes()
+        |> Map.from_struct()
+        |> Map.take(keys)
+      end
+
       def insert(changeset_or_attrs, opts \\ [])
 
       def insert(%Ecto.Changeset{} = changeset, opts) do

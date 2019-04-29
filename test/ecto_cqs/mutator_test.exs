@@ -5,24 +5,38 @@ defmodule EctoCQS.MutatorTest do
   alias EctoCQS.User
   alias EctoCQS.User.{Loader, Mutator}
 
+  describe "cast/2" do
+    test "casts attributes using schema changeset" do
+      attrs = %{name: "John", email: "john@example.com", age: "32"}
+
+      assert Mutator.cast(attrs) == %{
+               name: "John",
+               email: "john@example.com",
+               age: 32
+             }
+    end
+  end
+
   describe "insert/2" do
     test "inserts user (valid changeset)" do
-      attrs = %{name: "John", email: "john@example.com"}
+      attrs = %{name: "John", email: "john@example.com", age: 30}
       changeset = User.changeset(%User{}, attrs)
       assert {:ok, %User{id: id}} = Mutator.insert(changeset)
 
       user = Loader.get!(id)
       assert user.name == "John"
       assert user.email == "john@example.com"
+      assert user.age == 30
     end
 
     test "inserts user (valid attributes)" do
-      attrs = %{name: "John", email: "john@example.com"}
+      attrs = %{name: "John", email: "john@example.com", age: 30}
       assert {:ok, %User{id: id}} = Mutator.insert(attrs)
 
       user = Loader.get!(id)
       assert user.name == "John"
       assert user.email == "john@example.com"
+      assert user.age == 30
     end
 
     test "returns error changeset (invalid changeset)" do
@@ -40,28 +54,30 @@ defmodule EctoCQS.MutatorTest do
   describe "insert_all/2" do
     test "inserts all users" do
       entries = [
-        %{name: "John", email: "john@example.com"},
-        %{name: "Jane", email: "jane@example.com"}
+        %{name: "John", email: "john@example.com", age: 30},
+        %{name: "Jane", email: "jane@example.com", age: 31}
       ]
 
-      assert {2, nil} = Mutator.insert_all(entries)
+      assert Mutator.insert_all(entries) == {2, nil}
 
       users = Loader.all()
       assert Enum.count(users) == 2
 
       assert Enum.at(users, 0).name == "John"
       assert Enum.at(users, 0).email == "john@example.com"
+      assert Enum.at(users, 0).age == 30
 
       assert Enum.at(users, 1).name == "Jane"
       assert Enum.at(users, 1).email == "jane@example.com"
+      assert Enum.at(users, 1).age == 31
     end
   end
 
   describe "multi_insert/2" do
     test "inserts all users (valid changesets)" do
       entries = [
-        %{name: "John", email: "john@example.com"},
-        %{name: "Jane", email: "jane@example.com"}
+        %{name: "John", email: "john@example.com", age: 30},
+        %{name: "Jane", email: "jane@example.com", age: 31}
       ]
 
       changesets = Enum.map(entries, &User.changeset(%User{}, &1))
@@ -72,15 +88,17 @@ defmodule EctoCQS.MutatorTest do
 
       assert Enum.at(users, 0).name == "John"
       assert Enum.at(users, 0).email == "john@example.com"
+      assert Enum.at(users, 0).age == 30
 
       assert Enum.at(users, 1).name == "Jane"
       assert Enum.at(users, 1).email == "jane@example.com"
+      assert Enum.at(users, 1).age == 31
     end
 
     test "inserts all users (valid entries)" do
       entries = [
-        %{name: "John", email: "john@example.com"},
-        %{name: "Jane", email: "jane@example.com"}
+        %{name: "John", email: "john@example.com", age: 30},
+        %{name: "Jane", email: "jane@example.com", age: 31}
       ]
 
       assert {:ok, _changes} = Mutator.multi_insert(entries)
@@ -90,15 +108,17 @@ defmodule EctoCQS.MutatorTest do
 
       assert Enum.at(users, 0).name == "John"
       assert Enum.at(users, 0).email == "john@example.com"
+      assert Enum.at(users, 0).age == 30
 
       assert Enum.at(users, 1).name == "Jane"
       assert Enum.at(users, 1).email == "jane@example.com"
+      assert Enum.at(users, 1).age == 31
     end
 
     test "returns Ecto.Multi error (one changeset is invalid)" do
       entries = [
-        %{name: "John", email: "john@example.com"},
-        %{name: nil, email: "jane@example.com"}
+        %{name: "John", email: "john@example.com", age: 30},
+        %{name: nil, email: "jane@example.com", age: 31}
       ]
 
       changesets = Enum.map(entries, &User.changeset(%User{}, &1))
@@ -110,8 +130,8 @@ defmodule EctoCQS.MutatorTest do
 
     test "returns Ecto.Multi error (one entry is invalid)" do
       entries = [
-        %{name: "John", email: "john@example.com"},
-        %{name: nil, email: "jane@example.com"}
+        %{name: "John", email: "john@example.com", age: 30},
+        %{name: nil, email: "jane@example.com", age: 31}
       ]
 
       assert {:error, _, _, _} = Mutator.multi_insert(entries)
