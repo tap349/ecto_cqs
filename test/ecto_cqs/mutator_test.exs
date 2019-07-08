@@ -62,6 +62,11 @@ defmodule EctoCQS.MutatorTest do
   end
 
   describe "multi_insert/2" do
+    test "returns empty changes when there are no users" do
+      assert {:ok, changes} = Mutator.multi_insert([])
+      assert changes == %{}
+    end
+
     test "inserts all users (valid changesets)" do
       entries = [
         %{name: "John", email: "john@example.com", age: 30},

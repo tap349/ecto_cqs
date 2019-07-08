@@ -65,6 +65,19 @@ defmodule EctoCQS.Mutator do
         |> multi_insert(opts)
       end
 
+      def multi_update(changesets, opts \\ [])
+
+      def multi_update([], opts), do: {:ok, %{}}
+
+      def multi_update([%Ecto.Changeset{} | _] = changesets, opts) do
+        changesets
+        |> Enum.with_index()
+        |> Enum.reduce(Multi.new(), fn {changeset, i}, acc ->
+          Multi.update(acc, i, changeset, opts)
+        end)
+        |> Repo.transaction()
+      end
+
       def update(%Schema{} = struct, attrs) do
         struct
         |> Schema.update_changeset(attrs)
