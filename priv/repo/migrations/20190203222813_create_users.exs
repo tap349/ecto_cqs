@@ -8,7 +8,6 @@ defmodule EctoCQS.Repo.Migrations.CreateUsers do
   def change do
     create table(:users) do
       add :name, :string, null: false
-      add :email, :string, null: false
       add :age, :integer, null: false
 
       timestamps(type: :utc_datetime)

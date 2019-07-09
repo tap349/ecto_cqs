@@ -4,14 +4,13 @@ defmodule EctoCQS.User do
 
   schema "users" do
     field :name, :string
-    field :email, :string
     field :age, :integer
 
     timestamps(type: :utc_datetime)
   end
 
-  @create_permitted_fields ~w(name email age)a
-  @update_permitted_fields ~w(name)a
+  @create_permitted_fields ~w(name age)a
+  @update_permitted_fields ~w(age)a
   @required_fields @create_permitted_fields
 
   def changeset(%__MODULE__{} = user, attrs) do

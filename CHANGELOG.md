@@ -1,3 +1,7 @@
+## v0.4.1
+
+- add `EctoCQS.Mutator.multi_update/2`
+
 ## v0.4.0
 
 - remove `EctoCQS.SchemaHelpers` module - I'm going to extract these and
