@@ -3,84 +3,100 @@ defmodule EctoCQS.LoaderTest do
   import EctoCQS.Helpers, only: [now: 0]
   alias EctoCQS.User.Loader
 
-  test "all_by/1 returns users filtered using given expression" do
-    now = now()
+  describe "all_by/1" do
+    test "returns users filtered using given expression" do
+      now = now()
 
-    user_1 =
-      insert!(:user,
-        name: "John",
-        inserted_at: DateTime.add(now, 1, :second)
-      )
+      user_1 =
+        insert!(:user,
+          name: "John",
+          inserted_at: DateTime.add(now, 1, :second)
+        )
 
-    user_2 =
-      insert!(:user,
-        name: "John",
-        inserted_at: DateTime.add(now, 2, :second)
-      )
+      user_2 =
+        insert!(:user,
+          name: "John",
+          inserted_at: DateTime.add(now, 2, :second)
+        )
 
-    _user_3 =
-      insert!(:user,
-        name: "Jane",
-        inserted_at: DateTime.add(now, 3, :second)
-      )
+      _user_3 =
+        insert!(:user,
+          name: "Jane",
+          inserted_at: DateTime.add(now, 3, :second)
+        )
 
-    assert Loader.all_by(name: "John") == [user_1, user_2]
+      assert Loader.all_by(name: "John") == [user_1, user_2]
+    end
   end
 
-  test "all_ordered_by/1 returns all users ordered using given expression" do
-    now = now()
-    user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
-    user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
+  describe "all_ordered_by/1" do
+    test "returns all users ordered using given expression" do
+      now = now()
+      user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
+      user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
 
-    assert Loader.all_ordered_by(desc: :inserted_at) == [user_2, user_1]
+      assert Loader.all_ordered_by(desc: :inserted_at) == [user_2, user_1]
+    end
   end
 
-  test "first/0 returns first created user" do
-    now = now()
-    user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
-    _user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
+  describe "first/0" do
+    test "returns first created user" do
+      now = now()
+      user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
+      _user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
 
-    assert Loader.first() == user_1
+      assert Loader.first() == user_1
+    end
   end
 
-  test "first/1 returns first N created users" do
-    now = now()
-    user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
-    user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
-    _user_3 = insert!(:user, inserted_at: DateTime.add(now, 3, :second))
+  describe "first/1" do
+    test "returns first N created users" do
+      now = now()
+      user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
+      user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
+      _user_3 = insert!(:user, inserted_at: DateTime.add(now, 3, :second))
 
-    assert Loader.first(2) == [user_1, user_2]
+      assert Loader.first(2) == [user_1, user_2]
+    end
   end
 
-  test "last/0 returns last created user" do
-    now = now()
-    _user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
-    user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
+  describe "last/0" do
+    test "returns last created user" do
+      now = now()
+      _user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
+      user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
 
-    assert Loader.last() == user_2
+      assert Loader.last() == user_2
+    end
   end
 
-  test "last/1 returns last N created users" do
-    now = now()
-    _user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
-    user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
-    user_3 = insert!(:user, inserted_at: DateTime.add(now, 3, :second))
+  describe "last/1" do
+    test "returns last N created users" do
+      now = now()
+      _user_1 = insert!(:user, inserted_at: DateTime.add(now, 1, :second))
+      user_2 = insert!(:user, inserted_at: DateTime.add(now, 2, :second))
+      user_3 = insert!(:user, inserted_at: DateTime.add(now, 3, :second))
 
-    assert Loader.last(2) == [user_3, user_2]
+      assert Loader.last(2) == [user_3, user_2]
+    end
   end
 
-  test "count/0 returns count of all users" do
-    insert!(:user)
-    insert!(:user)
+  describe "count/0" do
+    test "returns count of all users" do
+      insert!(:user)
+      insert!(:user)
 
-    assert Loader.count() == 2
+      assert Loader.count() == 2
+    end
   end
 
-  test "count_by/0 returns count of users filtered using given expression" do
-    insert!(:user, name: "John")
-    insert!(:user, name: "John")
-    insert!(:user, name: "Jane")
+  describe "count_by/0" do
+    test "returns count of users filtered using given expression" do
+      insert!(:user, name: "John")
+      insert!(:user, name: "John")
+      insert!(:user, name: "Jane")
 
-    assert Loader.count_by(name: "John") == 2
+      assert Loader.count_by(name: "John") == 2
+    end
   end
 end

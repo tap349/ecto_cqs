@@ -15,65 +15,89 @@ defmodule EctoCQS.Loader do
       alias unquote(schema)
       alias unquote(:"#{schema}.Query")
 
-      # don't test delegating functions
-      #
       # use Repo functions that don't require schema
       # (like Repo.preload/2) directly without Loader
-      defdelegate all(schema \\ Schema), to: Repo
-      defdelegate get(schema \\ Schema, id), to: Repo
-      defdelegate get!(schema \\ Schema, id), to: Repo
-      defdelegate get_by(schema \\ Schema, expr), to: Repo
-      defdelegate get_by!(schema \\ Schema, expr), to: Repo
+
+      def all do
+        default_scope()
+        |> Repo.all()
+      end
+
+      def get(id) do
+        default_scope()
+        |> Repo.get(id)
+      end
+
+      def get!(id) do
+        default_scope()
+        |> Repo.get!(id)
+      end
+
+      def get_by(expr) do
+        default_scope()
+        |> Repo.get_by(expr)
+      end
+
+      def get_by!(expr) do
+        default_scope()
+        |> Repo.get_by!(expr)
+      end
 
       def all_by(expr) do
-        Schema
+        default_scope()
         |> where(^expr)
         |> order_by(:inserted_at)
         |> Repo.all()
       end
 
       def all_ordered_by(expr) do
-        Schema
+        default_scope()
         |> order_by(^expr)
         |> Repo.all()
       end
 
       def first do
-        Schema
+        default_scope()
         |> EctoCQS.Query.first()
         |> Repo.one()
       end
 
       def first(limit) do
-        Schema
+        default_scope()
         |> order_by(:inserted_at)
         |> limit(^limit)
         |> Repo.all()
       end
 
       def last do
-        Schema
+        default_scope()
         |> EctoCQS.Query.last()
         |> Repo.one()
       end
 
       def last(limit) do
-        Schema
+        default_scope()
         |> order_by(desc: :inserted_at)
         |> limit(^limit)
         |> Repo.all()
       end
 
       def count do
-        Schema
+        default_scope()
         |> Repo.aggregate(:count, :id)
       end
 
       def count_by(expr) do
-        Schema
+        default_scope()
         |> where(^expr)
         |> Repo.aggregate(:count, :id)
       end
+
+      def default_scope do
+        Schema
+      end
+
+      defoverridable default_scope: 0
     end
   end
 end
