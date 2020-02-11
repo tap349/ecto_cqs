@@ -106,6 +106,28 @@ defmodule EctoCQS.MutatorTest do
     end
   end
 
+  describe "multi_insert_all/3" do
+    test "returns empty changes when there are no entries" do
+      assert {:ok, changes} = Mutator.multi_insert_all([])
+      assert changes == %{}
+    end
+
+    test "inserts all users in batches" do
+      entries = [%{name: "John", age: 30}, %{name: "Jane", age: 31}]
+      batch_size = 1
+      assert {:ok, _changes} = Mutator.multi_insert_all(entries, batch_size)
+
+      users = Loader.all()
+      assert Enum.count(users) == 2
+
+      assert Enum.at(users, 0).name == "John"
+      assert Enum.at(users, 0).age == 30
+
+      assert Enum.at(users, 1).name == "Jane"
+      assert Enum.at(users, 1).age == 31
+    end
+  end
+
   describe "multi_update/2" do
     test "returns empty changes when there are no changesets or entries" do
       assert {:ok, changes} = Mutator.multi_update([])

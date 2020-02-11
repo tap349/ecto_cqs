@@ -65,6 +65,24 @@ defmodule EctoCQS.Mutator do
         |> multi_insert(opts)
       end
 
+      def multi_insert_all(entries, batch_size \\ 50_000, opts \\ [])
+
+      def multi_insert_all([], batch_size, opts), do: {:ok, %{}}
+
+      def multi_insert_all(entries, batch_size, opts) do
+        timestamps = EctoCQS.Helpers.timestamps(:second)
+        entries = Enum.map(entries, &Map.merge(&1, timestamps))
+        opts = Keyword.merge(@default_insert_opts, opts)
+
+        entries
+        |> Enum.chunk_every(batch_size)
+        |> Enum.with_index()
+        |> Enum.reduce(Multi.new(), fn {entries, i}, acc ->
+          Multi.insert_all(acc, i, Schema, entries, opts)
+        end)
+        |> Repo.transaction()
+      end
+
       def multi_update(changesets, opts \\ [])
 
       def multi_update([], opts), do: {:ok, %{}}
