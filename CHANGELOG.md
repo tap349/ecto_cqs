@@ -1,3 +1,7 @@
+## v0.6.0
+
+- add `EctoCQS.Mutator.multi_insert_all/3`
+
 ## v0.5.0
 
 - allow to override `EctoCQS.Loader.default_scope/0`
